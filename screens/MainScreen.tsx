@@ -1,10 +1,32 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import AccountInfo from '../components/AccountInfo';
+import {useConnection} from '@solana/wallet-adapter-react';
+
+import {Section} from '../components/Section';
 import ConnectWalletButton from '../components/ConnectButton';
+import AccountInfo from '../components/AccountInfo';
+import {useAuthorization, Account} from '../components/AuthorizationProvider';
 
 export default function MainScreen() {
-  const {accounts, onChangeAccount, selectedAccount} = useAuthorization();
+  const {connection} = useConnection();
+  const {selectedAccount} = useAuthorization();
+  const [balance, setBalance] = useState<number | null>(null);
+
+  const fetchAndUpdateBalance = useCallback(
+    async (account: Account) => {
+      const fetchedBalance = await connection.getBalance(account.publicKey);
+      console.log('Balance fetched: ' + fetchedBalance);
+      setBalance(fetchedBalance);
+    },
+    [connection],
+  );
+
+  useEffect(() => {
+    if (!selectedAccount) {
+      return;
+    }
+    fetchAndUpdateBalance(selectedAccount);
+  }, [fetchAndUpdateBalance, selectedAccount]);
 
   return (
     <>
@@ -13,20 +35,14 @@ export default function MainScreen() {
           <Section title="Network" />
 
           <Section title="Balance" />
+          {selectedAccount ? (
+            <AccountInfo selectedAccount={selectedAccount} balance={balance} />
+          ) : null}
 
           <Section title="Wallet Connection" />
         </ScrollView>
-        {accounts && selectedAccount ? (
-          <AccountInfo
-            accounts={accounts}
-            onChange={onChangeAccount}
-            selectedAccount={selectedAccount}
-          />
-        ) : (
-          <ConnectWalletButton style={styles.connectButton} mode="contained">
-            Connect to Wallet
-          </ConnectWalletButton>
-        )}
+
+        <ConnectWalletButton title="Connect wallet" />
       </View>
     </>
   );

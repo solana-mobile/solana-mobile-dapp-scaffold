@@ -9,7 +9,8 @@ import {
   ReauthorizeAPI,
 } from '@solana-mobile/mobile-wallet-adapter-protocol';
 import {toUint8Array} from 'js-base64';
-import {useState, useCallback, useMemo} from 'react';
+import {useState, useCallback, useMemo, ReactNode} from 'react';
+import React from 'react';
 
 export type Account = Readonly<{
   address: Base64EncodedAddress;
@@ -64,7 +65,30 @@ export const APP_IDENTITY = {
   name: 'React Native dApp',
 };
 
-export default function useAuthorization() {
+export interface AuthorizationProviderContext {
+  accounts: Account[] | null;
+  authorizeSession: (wallet: AuthorizeAPI & ReauthorizeAPI) => Promise<Account>;
+  deauthorizeSession: (wallet: DeauthorizeAPI) => void;
+  onChangeAccount: (nextSelectedAccount: Account) => void;
+  selectedAccount: Account | null;
+}
+
+const AuthorizationContext = React.createContext<AuthorizationProviderContext>({
+  accounts: null,
+  authorizeSession: (_wallet: AuthorizeAPI & ReauthorizeAPI) => {
+    throw new Error('AuthorizationProvider not initialized');
+  },
+  deauthorizeSession: (_wallet: DeauthorizeAPI) => {
+    throw new Error('AuthorizationProvider not initialized');
+  },
+  onChangeAccount: (_nextSelectedAccount: Account) => {
+    throw new Error('AuthorizationProvider not initialized');
+  },
+  selectedAccount: null,
+});
+
+function AuthorizationProvider(props: {children: ReactNode}) {
+  const {children} = props;
   const [authorization, setAuthorization] = useState<Authorization | null>(
     null,
   );
@@ -130,7 +154,7 @@ export default function useAuthorization() {
     },
     [setAuthorization],
   );
-  return useMemo(
+  const value = useMemo(
     () => ({
       accounts: authorization?.accounts ?? null,
       authorizeSession,
@@ -140,4 +164,14 @@ export default function useAuthorization() {
     }),
     [authorization, authorizeSession, deauthorizeSession, onChangeAccount],
   );
+
+  return (
+    <AuthorizationContext.Provider value={value}>
+      {children}
+    </AuthorizationContext.Provider>
+  );
 }
+
+const useAuthorization = () => React.useContext(AuthorizationContext);
+
+export {AuthorizationProvider, useAuthorization};
