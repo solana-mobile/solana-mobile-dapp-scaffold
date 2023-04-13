@@ -1,11 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useConnection} from '@solana/wallet-adapter-react';
 
 import {Section} from '../components/Section';
-import ConnectWalletButton from '../components/ConnectButton';
+import ConnectButton from '../components/ConnectButton';
 import AccountInfo from '../components/AccountInfo';
 import {useAuthorization, Account} from '../components/AuthorizationProvider';
+import DisconnectButton from '../components/DisconnectButton';
+import RequestAirdropButton from '../components/RequestAirdropButton';
 
 export default function MainScreen() {
   const {connection} = useConnection();
@@ -14,6 +16,7 @@ export default function MainScreen() {
 
   const fetchAndUpdateBalance = useCallback(
     async (account: Account) => {
+      console.log('Fetching balance for: ' + account.publicKey);
       const fetchedBalance = await connection.getBalance(account.publicKey);
       console.log('Balance fetched: ' + fetchedBalance);
       setBalance(fetchedBalance);
@@ -30,27 +33,50 @@ export default function MainScreen() {
 
   return (
     <>
-      <View>
-        <ScrollView contentContainerStyle={styles.container}>
-          <Section title="Network" />
+      <View style={styles.mainContainer}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <Section title="Connect Button">
+            <Text>Connect to an installed Wallet App.</Text>
+          </Section>
 
-          <Section title="Balance" />
+          <Section title="Request Airdrop Button">
+            <Text>Request an airdrop of SOL tokens on devnet.</Text>
+          </Section>
+
           {selectedAccount ? (
-            <AccountInfo selectedAccount={selectedAccount} balance={balance} />
+            <Section title="Account Info">
+              <AccountInfo
+                selectedAccount={selectedAccount}
+                balance={balance}
+              />
+              <RequestAirdropButton
+                selectedAccount={selectedAccount}
+                onAirdropComplete={async (account: Account) =>
+                  await fetchAndUpdateBalance(account)
+                }
+              />
+            </Section>
           ) : null}
-
-          <Section title="Wallet Connection" />
         </ScrollView>
 
-        <ConnectWalletButton title="Connect wallet" />
+        {selectedAccount ? (
+          <DisconnectButton title="Disconnect wallet" />
+        ) : (
+          <ConnectButton title="Connect wallet" />
+        )}
       </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
+    height: '100%',
     padding: 16,
+    flex: 1,
+  },
+  scrollContainer: {
+    height: '100%',
   },
   title: {
     fontSize: 18,

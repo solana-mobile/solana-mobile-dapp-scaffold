@@ -1,25 +1,28 @@
 import {useConnection} from '@solana/wallet-adapter-react';
-import {PublicKey} from '@solana/web3.js';
 import React, {useState, useCallback} from 'react';
 import {Button} from 'react-native';
+import {Account} from '../components/AuthorizationProvider';
 
 type Props = Readonly<{
-  children?: React.ReactNode;
-  publicKey: PublicKey;
+  selectedAccount: Account;
+  onAirdropComplete: (account: Account) => void;
 }>;
 
 const LAMPORTS_PER_AIRDROP = 100000000;
 
-export default function RequestAirdropButton({publicKey}: Props) {
+export default function RequestAirdropButton({
+  selectedAccount,
+  onAirdropComplete,
+}: Props) {
   const {connection} = useConnection();
   const [airdropInProgress, setAirdropInProgress] = useState(false);
   const requestAirdrop = useCallback(async () => {
     const signature = await connection.requestAirdrop(
-      publicKey,
+      selectedAccount.publicKey,
       LAMPORTS_PER_AIRDROP,
     );
     return await connection.confirmTransaction(signature);
-  }, [connection, publicKey]);
+  }, [connection, selectedAccount]);
   return (
     <Button
       title="Request Airdrop"
@@ -42,12 +45,7 @@ export default function RequestAirdropButton({publicKey}: Props) {
               );
             } else {
               console.log({children: 'Funding successful'});
-              // mutate(
-              //   ['accountBalance', publicKey],
-              //   // Optimistic update; will be revalidated automatically by SWR.
-              //   (currentBalance?: number) =>
-              //     (currentBalance || 0) + LAMPORTS_PER_AIRDROP,
-              // );
+              onAirdropComplete(selectedAccount);
             }
           }
         } finally {

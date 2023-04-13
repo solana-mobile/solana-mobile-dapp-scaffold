@@ -100,7 +100,6 @@ function AuthorizationProvider(props: {children: ReactNode}) {
         authorizationResult,
         authorization?.selectedAccount,
       );
-      console.log(nextAuthorization);
       await setAuthorization(nextAuthorization);
       return nextAuthorization;
     },
@@ -108,7 +107,6 @@ function AuthorizationProvider(props: {children: ReactNode}) {
   );
   const authorizeSession = useCallback(
     async (wallet: AuthorizeAPI & ReauthorizeAPI) => {
-      console.log(authorization);
       const authorizationResult = await (authorization
         ? wallet.reauthorize({
             auth_token: authorization.authToken,
@@ -118,7 +116,6 @@ function AuthorizationProvider(props: {children: ReactNode}) {
             cluster: 'devnet',
             identity: APP_IDENTITY,
           }));
-      console.log(authorizationResult);
       return (await handleAuthorizationResult(authorizationResult))
         .selectedAccount;
     },
