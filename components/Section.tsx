@@ -19,7 +19,7 @@ export const Section: React.FC<{
           {description}
         </Text>
       ) : null}
-      <Text style={[styles.sectionDescription, textColor]}>{children}</Text>
+      <View style={[styles.sectionDescription]}>{children}</View>
     </View>
   );
 };
@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 18,
     paddingHorizontal: 24,
+  },
+  childrenContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   sectionTitle: {
     fontSize: 24,
