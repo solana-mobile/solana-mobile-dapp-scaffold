@@ -14,12 +14,25 @@ The app showcases basic usage of the Solana Mobile Javascript SDK including:
 
 # Installation
 
+1. Download and install JDK
+- `https://www.oracle.com/java/technologies/downloads/`
+
+1. Download and install Android Studios
+- `https://developer.android.com/studio`
+
+1. set environment variables
+  ```bash
+    # export paths for solana saga development
+    export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home
+    export ANDROID_HOME=/Users/<YOUR NAME>/Library/Android/sdk
+    export PATH=$PATH:$ANDROID_HOME/tools
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
+  ```
 1. Clone the repo
 - `git clone https://github.com/solana-mobile/SolanaMobileDAppScaffold.git` then `cd SolanaMobileDAppScaffold`
-2. Install dependencies
+1. Install dependencies
 - `yarn install` or `npm install`
-
-3. Launch the app on your Android device/emulator
+1. Launch the app on your Android device/emulator
 - `npx react-native run-android`
 
 
