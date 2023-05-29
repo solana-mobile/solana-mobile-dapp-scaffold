@@ -13,7 +13,7 @@ import {
   Transaction,
 } from '@solana/web3.js';
 
-import {useAuthorization} from './AuthorizationProvider';
+import {useAuthorization} from './providers/AuthorizationProvider';
 
 export const APP_IDENTITY = {
   name: 'Solana dApp Scaffold',

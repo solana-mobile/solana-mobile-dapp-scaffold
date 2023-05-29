@@ -1,11 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, Linking, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useConnection} from '@solana/wallet-adapter-react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 
 import {Section} from '../components/Section';
 import ConnectButton from '../components/ConnectButton';
 import AccountInfo from '../components/AccountInfo';
-import {useAuthorization, Account} from '../components/AuthorizationProvider';
+import {
+  useAuthorization,
+  Account,
+} from '../components/providers/AuthorizationProvider';
+import {useConnection} from '../components/providers/ConnectionProvider';
 import DisconnectButton from '../components/DisconnectButton';
 import RequestAirdropButton from '../components/RequestAirdropButton';
 import SignMessageButton from '../components/SignMessageButton';
@@ -62,12 +65,12 @@ export default function MainScreen() {
             </>
           ) : null}
         </ScrollView>
-
         {selectedAccount ? (
           <DisconnectButton title="Disconnect wallet" />
         ) : (
           <ConnectButton title="Connect wallet" />
         )}
+        <Text>Selected cluster: {connection.rpcEndpoint}</Text>
       </View>
     </>
   );
