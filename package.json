@@ -12,7 +12,6 @@
   "dependencies": {
     "@solana-mobile/mobile-wallet-adapter-protocol": "^2.0.0",
     "@solana-mobile/mobile-wallet-adapter-protocol-web3js": "^2.0.0",
-    "@solana/wallet-adapter-react": "^0.15.32",
     "@solana/web3.js": "^1.74.0",
     "@types/react": "~18.0.27",
     "buffer": "^6.0.3",

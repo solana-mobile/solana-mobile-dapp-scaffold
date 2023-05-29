@@ -2,7 +2,8 @@ import {transact} from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
 import React, {ComponentProps, useState, useCallback} from 'react';
 import {Button} from 'react-native';
 
-import {useAuthorization} from '../components/AuthorizationProvider';
+import {useAuthorization} from './providers/AuthorizationProvider';
+import {useConnection} from './providers/ConnectionProvider';
 
 type Props = Readonly<ComponentProps<typeof Button>>;
 

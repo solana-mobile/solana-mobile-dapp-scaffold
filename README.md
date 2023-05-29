@@ -11,7 +11,6 @@ This React Native dApp is only fully functional on Android.
 The app showcases basic usage of the Solana Mobile Javascript SDK including:
 - Mobile Wallet Adapter (@solana-mobile/mobile-wallet-adapter-protocol)
 - web3.js
-- @solana/wallet-adapter-react
 
 
 # Installation

@@ -1,12 +1,12 @@
 import React, {useState, useCallback} from 'react';
-import {Button, StyleSheet, Alert} from 'react-native';
+import {Button, Alert} from 'react-native';
 import {fromUint8Array} from 'js-base64';
 import {
   transact,
   Web3MobileWallet,
 } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
 
-import {useAuthorization} from './AuthorizationProvider';
+import {useAuthorization} from './providers/AuthorizationProvider';
 
 export const APP_IDENTITY = {
   name: 'Solana dApp Scaffold',

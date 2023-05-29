@@ -1,7 +1,7 @@
-import {useConnection} from '@solana/wallet-adapter-react';
+import {useConnection} from '../components/providers/ConnectionProvider';
 import React, {useState, useCallback} from 'react';
 import {Button} from 'react-native';
-import {Account} from '../components/AuthorizationProvider';
+import {Account} from './providers/AuthorizationProvider';
 
 type Props = Readonly<{
   selectedAccount: Account;
