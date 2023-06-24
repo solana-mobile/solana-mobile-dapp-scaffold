@@ -46,7 +46,6 @@ export default function RequestAirdropButton({
         try {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const result = await requestAirdrop();
-          console.log('58');
           alertAndLog(
             'Funding successful:',
             String(convertLamportsToSOL(LAMPORTS_PER_AIRDROP)) +
