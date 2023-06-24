@@ -25,13 +25,11 @@ export default function RequestAirdropButton({
   const {connection} = useConnection();
   const [airdropInProgress, setAirdropInProgress] = useState(false);
   const requestAirdrop = useCallback(async () => {
-    console.log('28');
     const signature = await connection.requestAirdrop(
       selectedAccount.publicKey,
       LAMPORTS_PER_AIRDROP,
     );
 
-    console.log('29');
     return await connection.confirmTransaction(signature);
   }, [connection, selectedAccount]);
   return (
