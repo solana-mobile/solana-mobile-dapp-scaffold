@@ -5,28 +5,22 @@ import {
   transact,
   Web3MobileWallet,
 } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
-import {
-  Keypair,
-  clusterApiUrl,
-  Connection,
-  SystemProgram,
-  Transaction,
-} from '@solana/web3.js';
+import {Keypair, SystemProgram, Transaction} from '@solana/web3.js';
 
 import {useAuthorization} from './providers/AuthorizationProvider';
+import {useConnection} from './providers/ConnectionProvider';
 
 export const APP_IDENTITY = {
   name: 'Solana dApp Scaffold',
 };
 
 export default function SignTransactionButton() {
+  const {connection} = useConnection();
   const {authorizeSession} = useAuthorization();
   const [signingInProgress, setSigningInProgress] = useState(false);
 
   const signTransaction = useCallback(async () => {
     return await transact(async (wallet: Web3MobileWallet) => {
-      const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-
       // First, request for authorization from the wallet and fetch the latest
       // blockhash for building the transaction.
       const [authorizationResult, latestBlockhash] = await Promise.all([

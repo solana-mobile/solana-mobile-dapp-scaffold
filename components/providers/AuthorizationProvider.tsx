@@ -12,6 +12,8 @@ import {toUint8Array} from 'js-base64';
 import {useState, useCallback, useMemo, ReactNode} from 'react';
 import React from 'react';
 
+import {RPC_ENDPOINT} from './ConnectionProvider';
+
 export type Account = Readonly<{
   address: Base64EncodedAddress;
   label?: string;
@@ -113,7 +115,7 @@ function AuthorizationProvider(props: {children: ReactNode}) {
             identity: APP_IDENTITY,
           })
         : wallet.authorize({
-            cluster: 'devnet',
+            cluster: RPC_ENDPOINT,
             identity: APP_IDENTITY,
           }));
       return (await handleAuthorizationResult(authorizationResult))

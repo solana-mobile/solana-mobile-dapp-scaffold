@@ -7,6 +7,8 @@ import React, {
   useContext,
 } from 'react';
 
+export const RPC_ENDPOINT = 'devnet';
+
 export interface ConnectionProviderProps {
   children: ReactNode;
   endpoint: string;

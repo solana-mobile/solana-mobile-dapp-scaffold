@@ -1,4 +1,7 @@
-import {ConnectionProvider} from './components/providers/ConnectionProvider';
+import {
+  ConnectionProvider,
+  RPC_ENDPOINT,
+} from './components/providers/ConnectionProvider';
 import {clusterApiUrl} from '@solana/web3.js';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
@@ -7,13 +10,11 @@ import {Header} from './components/Header';
 
 import MainScreen from './screens/MainScreen';
 
-const DEVNET_ENDPOINT = clusterApiUrl('devnet');
-
 export default function App() {
   return (
     <ConnectionProvider
       config={{commitment: 'processed'}}
-      endpoint={DEVNET_ENDPOINT}>
+      endpoint={clusterApiUrl(RPC_ENDPOINT)}>
       <AuthorizationProvider>
         <SafeAreaView style={styles.shell}>
           <Header />
