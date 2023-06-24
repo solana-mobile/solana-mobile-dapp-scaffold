@@ -2,11 +2,19 @@ import {useConnection} from '../components/providers/ConnectionProvider';
 import React, {useState, useCallback} from 'react';
 import {Button} from 'react-native';
 import {Account} from './providers/AuthorizationProvider';
+import {alertAndLog} from '../util/alertAndLog';
+import {LAMPORTS_PER_SOL} from '@solana/web3.js';
 
 type Props = Readonly<{
   selectedAccount: Account;
   onAirdropComplete: (account: Account) => void;
 }>;
+
+function convertLamportsToSOL(lamports: number) {
+  return new Intl.NumberFormat(undefined, {maximumFractionDigits: 1}).format(
+    (lamports || 0) / LAMPORTS_PER_SOL,
+  );
+}
 
 const LAMPORTS_PER_AIRDROP = 100000000;
 
@@ -39,12 +47,17 @@ export default function RequestAirdropButton({
               value: {err},
             } = result;
             if (err) {
-              console.log(
-                'Failed to fund account: ' +
-                  (err instanceof Error ? err.message : err),
+              alertAndLog(
+                'Failed to fund account:',
+                err instanceof Error ? err.message : err,
               );
             } else {
-              console.log({children: 'Funding successful'});
+              alertAndLog(
+                'Funding successful:',
+                String(convertLamportsToSOL(LAMPORTS_PER_AIRDROP)) +
+                  ' added to ' +
+                  selectedAccount.publicKey,
+              );
               onAirdropComplete(selectedAccount);
             }
           }

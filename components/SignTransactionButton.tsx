@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {Alert, Button} from 'react-native';
+import {Button} from 'react-native';
 import {fromUint8Array} from 'js-base64';
 import {
   transact,
@@ -9,10 +9,7 @@ import {Keypair, SystemProgram, Transaction} from '@solana/web3.js';
 
 import {useAuthorization} from './providers/AuthorizationProvider';
 import {useConnection} from './providers/ConnectionProvider';
-
-export const APP_IDENTITY = {
-  name: 'Solana dApp Scaffold',
-};
+import {alertAndLog} from '../util/alertAndLog';
 
 export default function SignTransactionButton() {
   const {connection} = useConnection();
@@ -49,7 +46,7 @@ export default function SignTransactionButton() {
 
       return signedTransactions[0];
     });
-  }, [authorizeSession]);
+  }, [authorizeSession, connection]);
 
   return (
     <Button
@@ -62,14 +59,16 @@ export default function SignTransactionButton() {
         setSigningInProgress(true);
         try {
           const signedTransaction = await signTransaction();
-          setTimeout(async () => {
-            Alert.alert(
-              'Transaction signed!',
-              'View SignTransactionButton.tsx for implementation.',
-              [{text: 'Ok', style: 'cancel'}],
-            );
-          }, 100);
+          alertAndLog(
+            'Transaction signed',
+            'View SignTransactionButton.tsx for implementation.',
+          );
           console.log(fromUint8Array(signedTransaction.serialize()));
+        } catch (err: any) {
+          alertAndLog(
+            'Error during signing',
+            err instanceof Error ? err.message : err,
+          );
         } finally {
           setSigningInProgress(false);
         }

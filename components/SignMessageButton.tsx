@@ -7,10 +7,7 @@ import {
 } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
 
 import {useAuthorization} from './providers/AuthorizationProvider';
-
-export const APP_IDENTITY = {
-  name: 'Solana dApp Scaffold',
-};
+import {alertAndLog} from '../util/alertAndLog';
 
 export default function SignMessageButton() {
   const {authorizeSession} = useAuthorization();
@@ -48,13 +45,12 @@ export default function SignMessageButton() {
             message.split('').map(c => c.charCodeAt(0)),
           );
           const signedMessage = await signMessage(messageBuffer);
-          setTimeout(async () => {
-            Alert.alert('Signed message:', '' + fromUint8Array(signedMessage), [
-              {text: 'Ok', style: 'cancel'},
-            ]);
-          }, 100);
-        } catch (error) {
-          console.error('Error signing message:', error);
+          alertAndLog('Messaged signed:', '' + fromUint8Array(signedMessage));
+        } catch (err: any) {
+          alertAndLog(
+            'Error during signing',
+            err instanceof Error ? err.message : err,
+          );
         } finally {
           setSigningInProgress(false);
         }
