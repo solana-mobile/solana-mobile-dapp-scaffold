@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: '#fff',
   },
   textContainer: {
     flexDirection: 'column',
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   walletBalance: {
-    color: '#000',
     fontSize: 24,
   },
 });

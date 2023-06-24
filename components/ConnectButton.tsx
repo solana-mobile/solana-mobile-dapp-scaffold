@@ -3,7 +3,6 @@ import React, {ComponentProps, useState, useCallback} from 'react';
 import {Button} from 'react-native';
 
 import {useAuthorization} from './providers/AuthorizationProvider';
-import {useConnection} from './providers/ConnectionProvider';
 
 type Props = Readonly<ComponentProps<typeof Button>>;
 
