@@ -3,7 +3,7 @@ import React, {ComponentProps, useState, useCallback} from 'react';
 import {Button} from 'react-native';
 
 import {useAuthorization} from './providers/AuthorizationProvider';
-import {useConnection} from './providers/ConnectionProvider';
+import {alertAndLog} from '../util/alertAndLog';
 
 type Props = Readonly<ComponentProps<typeof Button>>;
 
@@ -19,6 +19,11 @@ export default function ConnectButton(props: Props) {
       await transact(async wallet => {
         await authorizeSession(wallet);
       });
+    } catch (err: any) {
+      alertAndLog(
+        'Error during connect',
+        err instanceof Error ? err.message : err,
+      );
     } finally {
       setAuthorizationInProgress(false);
     }
