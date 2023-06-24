@@ -16,7 +16,7 @@ function convertLamportsToSOL(lamports: number) {
   );
 }
 
-const LAMPORTS_PER_AIRDROP = 100000000;
+const LAMPORTS_PER_AIRDROP = 1000000000;
 
 export default function RequestAirdropButton({
   selectedAccount,
@@ -25,10 +25,13 @@ export default function RequestAirdropButton({
   const {connection} = useConnection();
   const [airdropInProgress, setAirdropInProgress] = useState(false);
   const requestAirdrop = useCallback(async () => {
+    console.log('28');
     const signature = await connection.requestAirdrop(
       selectedAccount.publicKey,
       LAMPORTS_PER_AIRDROP,
     );
+
+    console.log('29');
     return await connection.confirmTransaction(signature);
   }, [connection, selectedAccount]);
   return (
@@ -41,26 +44,21 @@ export default function RequestAirdropButton({
         }
         setAirdropInProgress(true);
         try {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const result = await requestAirdrop();
-          if (result) {
-            const {
-              value: {err},
-            } = result;
-            if (err) {
-              alertAndLog(
-                'Failed to fund account:',
-                err instanceof Error ? err.message : err,
-              );
-            } else {
-              alertAndLog(
-                'Funding successful:',
-                String(convertLamportsToSOL(LAMPORTS_PER_AIRDROP)) +
-                  ' added to ' +
-                  selectedAccount.publicKey,
-              );
-              onAirdropComplete(selectedAccount);
-            }
-          }
+          console.log('58');
+          alertAndLog(
+            'Funding successful:',
+            String(convertLamportsToSOL(LAMPORTS_PER_AIRDROP)) +
+              ' SOL added to ' +
+              selectedAccount.publicKey,
+          );
+          onAirdropComplete(selectedAccount);
+        } catch (err: any) {
+          alertAndLog(
+            'Failed to fund account:',
+            err instanceof Error ? err.message : err,
+          );
         } finally {
           setAirdropInProgress(false);
         }
