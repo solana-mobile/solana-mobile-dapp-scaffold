@@ -33,13 +33,21 @@ Follow the guide to make sure you:
 - install an MWA compliant wallet app on your device/emulator.
    
 ## Usage
-Initialize your app folder
+1. Initialize project template
 ```
-npx react-native init MySolanaDapp --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git`
+npx react-native init MySolanaDapp --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git
 ```
 2. Install dependencies
 - `yarn install` or `npm install`
 3. Launch the app on your Android device/emulator
 - `npx react-native run-android`
+
+## Troubleshooting
+  
+- `TypeError: cli.init is not a function`: This during template initialization means you have an old version of React Native CLI.
+This template only works with the new CLI. You can uninstall and reinstall it as directed [here](https://stackoverflow.com/questions/72768245/typeerror-cli-init-is-not-a-function-for-react-native).
+
+- `Looks like your iOS environment is not properly set`: You can ignore this during template initialization and build the Android app as normal. This template is only compatible with Android.
+
 
 
