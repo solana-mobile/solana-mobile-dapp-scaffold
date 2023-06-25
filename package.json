@@ -1,0 +1,31 @@
+{
+    "name": "solana-mobile-dapp-scaffold",
+    "version": "0.0.1",
+    "description": "A quickstart React Native template for a Solana Mobile dApp with polyfills and dependencies installed",
+    "scripts": {
+      "test": "exit 0"
+    },
+    "files": [
+      "template",
+      "template.config.js"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git"
+    },
+    "keywords": [
+      "react-native",
+      "typescript",
+      "solana",
+      "blockchain",
+      "dapp",
+      "template",
+      "boilerplate"
+    ],
+    "author": "Michael Sulistio <michaelsulistio@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/solana-mobile/solana-mobile-dapp-scaffold/issues"
+    },
+    "homepage": "https://github.com/solana-mobile/solana-mobile-dapp-scaffold#readme"
+  }

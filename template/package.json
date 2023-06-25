@@ -1,6 +1,6 @@
 {
-  "name": "@solana-mobile/solana-mobile-dapp-scaffold",
-  "version": "1.0.0",
+  "name": "SolanaMobileDAppScaffold",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
