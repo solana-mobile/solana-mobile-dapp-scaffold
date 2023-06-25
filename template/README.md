@@ -5,9 +5,9 @@ It provides an interface to connect to locally installed wallet apps (that are M
 
 This React Native dApp is only fully functional on Android.
 
-## Toolkit
-- Mobile Wallet Adapter for connecting to wallet, signing transactions and messages
-- web3.js for 
+## Featured Libarires
+- [Mobile Wallet Adapter](https://github.com/solana-mobile/mobile-wallet-adapter/tree/main/js/packages/mobile-wallet-adapter-protocol) for connecting to wallets and signing transactions/messages
+- [web3.js](https://solana-labs.github.io/solana-web3.js/) for constructing transactions and an RPC `connection` client.
 
 <table>
   <tr>
@@ -33,11 +33,21 @@ Follow the guide to make sure you:
 - install an MWA compliant wallet app on your device/emulator.
    
 ## Usage
-1. Initialize your app template
-- `npx react-native init MySolanaDapp --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git` then `cd MySolanaDapp`
+1. Initialize project template
+```
+npx react-native init MySolanaDapp --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git
+```
 2. Install dependencies
 - `yarn install` or `npm install`
 3. Launch the app on your Android device/emulator
 - `npx react-native run-android`
+
+## Troubleshooting
+  
+- `TypeError: cli.init is not a function`: This during template initialization means you have an old version of React Native CLI.
+This template only works with the new CLI. You can uninstall and reinstall it as directed [here](https://stackoverflow.com/questions/72768245/typeerror-cli-init-is-not-a-function-for-react-native).
+
+- `Looks like your iOS environment is not properly set`: You can ignore this during template initialization and build the Android app as normal. This template is only compatible with Android.
+
 
 
