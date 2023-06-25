@@ -5,9 +5,9 @@ It provides an interface to connect to locally installed wallet apps (that are M
 
 This React Native dApp is only fully functional on Android.
 
-## Featured Libarires
-- [Mobile Wallet Adapter](https://github.com/solana-mobile/mobile-wallet-adapter/tree/main/js/packages/mobile-wallet-adapter-protocol) for connecting to wallets and signing transactions/messages
-- [web3.js](https://solana-labs.github.io/solana-web3.js/) for constructing transactions and an RPC `connection` client.
+## Toolkit
+- Mobile Wallet Adapter for connecting to wallet, signing transactions and messages
+- web3.js for 
 
 <table>
   <tr>
@@ -33,10 +33,8 @@ Follow the guide to make sure you:
 - install an MWA compliant wallet app on your device/emulator.
    
 ## Usage
-Initialize your app folder
-```
-npx react-native init MySolanaDapp --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git`
-```
+1. Initialize your app template
+- `npx react-native init MySolanaDapp --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git` then `cd MySolanaDapp`
 2. Install dependencies
 - `yarn install` or `npm install`
 3. Launch the app on your Android device/emulator
