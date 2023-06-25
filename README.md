@@ -36,6 +36,7 @@ Follow the guide to make sure you:
 1. Initialize project template
 ```
 npx react-native init MySolanaDapp --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git
+cd MySolanaDapp
 ```
 2. Install dependencies
 - `yarn install` or `npm install`
