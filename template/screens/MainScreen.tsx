@@ -49,24 +49,15 @@ export default function MainScreen() {
               <Section title="Sign a message">
                 <SignMessageButton />
               </Section>
-
-              <Section title="Account Info">
-                <AccountInfo
-                  selectedAccount={selectedAccount}
-                  balance={balance}
-                />
-                <RequestAirdropButton
-                  selectedAccount={selectedAccount}
-                  onAirdropComplete={async (account: Account) =>
-                    await fetchAndUpdateBalance(account)
-                  }
-                />
-              </Section>
             </>
           ) : null}
         </ScrollView>
         {selectedAccount ? (
-          <DisconnectButton title="Disconnect wallet" />
+          <AccountInfo
+            selectedAccount={selectedAccount}
+            balance={balance}
+            fetchAndUpdateBalance={fetchAndUpdateBalance}
+          />
         ) : (
           <ConnectButton title="Connect wallet" />
         )}

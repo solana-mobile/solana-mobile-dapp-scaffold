@@ -1,6 +1,8 @@
 import React from 'react';
 import {LAMPORTS_PER_SOL, PublicKey} from '@solana/web3.js';
 import {StyleSheet, View, Text} from 'react-native';
+import RequestAirdropButton from './RequestAirdropButton';
+import DisconnectButton from './DisconnectButton';
 
 interface Account {
   address: string;
@@ -11,6 +13,7 @@ interface Account {
 type AccountInfoProps = Readonly<{
   selectedAccount: Account;
   balance: number | null;
+  fetchAndUpdateBalance: (account: Account) => void;
 }>;
 
 function convertLamportsToSOL(lamports: number) {
@@ -22,19 +25,29 @@ function convertLamportsToSOL(lamports: number) {
 export default function AccountInfo({
   balance,
   selectedAccount,
+  fetchAndUpdateBalance,
 }: AccountInfoProps) {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
+        <Text style={styles.walletHeader}>Wallet Account Info</Text>
         <Text style={styles.walletBalance}>
-          {balance !== null
-            ? `Balance: ${convertLamportsToSOL(balance)} SOL`
-            : 'Loading balance...'}
-        </Text>
-        <Text style={styles.walletName}>
-          {selectedAccount.label ?? 'Wallet name not found'}
+          {selectedAccount.label
+            ? `${selectedAccount.label}: ◎${
+                balance ? convertLamportsToSOL(balance) : '0'
+              } SOL`
+            : 'Wallet name not found'}
         </Text>
         <Text style={styles.walletNameSubtitle}>{selectedAccount.address}</Text>
+        <View style={styles.buttonGroup}>
+          <DisconnectButton title={'Disconnect'} />
+          <RequestAirdropButton
+            selectedAccount={selectedAccount}
+            onAirdropComplete={async (account: Account) =>
+              await fetchAndUpdateBalance(account)
+            }
+          />
+        </View>
       </View>
     </View>
   );
@@ -43,6 +56,7 @@ export default function AccountInfo({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    padding: 24,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -51,15 +65,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  walletName: {
-    fontSize: 20,
+  buttonGroup: {
+    flexDirection: 'row',
+    columnGap: 10,
+  },
+  walletHeader: {
     fontWeight: 'bold',
+  },
+  walletBalance: {
+    fontSize: 20,
   },
   walletNameSubtitle: {
     fontSize: 12,
     marginBottom: 5,
-  },
-  walletBalance: {
-    fontSize: 24,
   },
 });
