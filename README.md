@@ -37,6 +37,8 @@ Follow the guide to make sure you:
 ```
 npx react-native init MySolanaDapp --template @solana-mobile/solana-mobile-dapp-scaffold --npm
 ```
+note: The `--npm` flag is only needed if you're using Yarn 3 as a package manager. Once the template is initialized, you can delete the `package-lock.json` and run `yarn install` to continue using Yarn 3.
+
 2. Install dependencies
 - `yarn install` or `npm install`
 3. Launch the app on your Android device/emulator
