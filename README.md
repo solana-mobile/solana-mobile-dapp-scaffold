@@ -35,7 +35,7 @@ Follow the guide to make sure you:
 ## Usage
 1. Initialize project template
 ```
-npx react-native init MySolanaDapp --template @solana-mobile/solana-mobile-dapp-scaffold --npm
+npx @react-native-community/cli@latest init MySolanaDapp --template @solana-mobile/solana-mobile-dapp-scaffold --pm npm
 ```
 note: The `--npm` flag is only needed if you're using Yarn 3 as a package manager. Once the template is initialized, you can delete the `package-lock.json` and run `yarn install` to continue using Yarn 3.
 
