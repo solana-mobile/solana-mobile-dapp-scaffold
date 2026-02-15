@@ -41,8 +41,8 @@
     "typescript": "4.8.4"
   },
   "resolutions": {
-    "ws": "^8.17.1",
-    "base-x": "^4.0.1"
+    "ws": "^6.2.3",
+    "base-x": "^3.0.9"
   },
   "jest": {
     "preset": "react-native"
